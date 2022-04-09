@@ -1,0 +1,7 @@
+.idea/
+.DS_Store
+.gradle/
+build/
+
+# Ignore the Java code that ANTLR auto-generates.
+app/src/main/java/dgroomes/antlr/
