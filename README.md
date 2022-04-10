@@ -17,13 +17,18 @@ guide. It implements the ANTLR code-gen via a Gradle plugin and task.
 Follow these instructions to code-gen the parser, build the sample program and run it:
 
 1. Use Java 17
-2. Generate the ANTLR parser and build the program distribution:
+2. Generate the ANTLR parser:
+   * `./gradlew antlr`
+   * This task runs ANTLR and generates Java source code files into `src/main/java/dgroomes/antlr` based on the `Hello.g4`
+     grammar file in the same directory.
+   * The generated code is version-controlled. You are encouraged to read it and learn it. If you want to regenerate
+     the parser code from scratch, first delete the generated code by hand, then run the Gradle task.
+3. Build the program distribution:
    * `./gradlew install`
-   * Notice the files in `src/main/java/dgroomes/antlr`. These are the result of ANTLR's code generation.
-3. Create an alias to run the program:
+4. Create an alias to run the program:
    * `alias app="./app/build/install/app/bin/app"`
 5. Run the program over an example `*.hello` file
-   * `app "${PWD}/greet-friends.hello"`
+   * `app greet-friends.hello`
 
 ## Wish list
 
