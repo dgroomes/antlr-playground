@@ -31,11 +31,11 @@ Follow these instructions to code-gen the parser, build the sample program and r
    * `app greet-friends.hello`
    * It should output something like:
      ```text
-     enter   greeting, LT(1)=hello
-     consume [@0,0:4='hello',<1>,1:0] rule greeting
-     consume [@1,6:14='Demetrius',<2>,1:6] rule greeting
-     exit    greeting, LT(1)=hello
+     $ app greet-friends.hello
      (greeting hello Demetrius)
+     (greeting hello Abigail)
+     (greeting hello Evelyn)
+     (greeting hello Krobus)
      ```
 
 ## Wish list
@@ -45,8 +45,9 @@ General clean ups, TODOs and things I wish to implement for this project:
 * Learn about [Gradle's built-in `antlr` task](https://docs.gradle.org/current/userguide/antlr_plugin.html). It's not
   brilliantly documented so I had an easier time to just writing the Gradle code by-hand. But it would be more idiomatic
   to use Gradle's own plugin and tasks.
-* Support multiple greetings. Right now, only `(greeting hello Demetrius)` shows up in the output but I want `(greeting hello Abigail)`
+* DONE Support multiple greetings. Right now, only `(greeting hello Demetrius)` shows up in the output but I want `(greeting hello Abigail)`
   etc.
+* Better detection for EOF than the `children != null` trick.
 
 ## Reference
 

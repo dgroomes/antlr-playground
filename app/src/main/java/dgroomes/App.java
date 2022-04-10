@@ -69,10 +69,14 @@ public class App {
       tokens.fill();
 
       parser = new HelloParser(tokens);
-      parser.setTrace(true);
+//      parser.setTrace(true);
     }
 
+    // Parse all 'hello ...' statements from the source file and print them.
     HelloParser.GreetingContext tree = parser.greeting();
-    System.out.println(tree.toStringTree(parser));
+    while (tree.children != null) {
+      System.out.println(tree.toStringTree(parser));
+      tree = parser.greeting();
+    }
   }
 }
