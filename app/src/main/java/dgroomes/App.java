@@ -1,8 +1,13 @@
 package dgroomes;
 
-import org.antlr.v4.gui.TestRig;
+import dgroomes.antlr.HelloLexer;
+import dgroomes.antlr.HelloParser;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * This is a simple Java program that parses a file in the 'Hello' syntax. The powerful ANTLR toolchain was used to
@@ -11,7 +16,7 @@ import java.io.File;
 public class App {
 
   public static void main(String[] args) throws Exception {
-    var helloFile = switch (parseArgs(args)) {
+    File helloFile = switch (parseArgs(args)) {
       case Ok<File, String> ok -> ok.value();
       case Err<File, String> err -> {
         System.err.println(err.value());
@@ -20,7 +25,7 @@ public class App {
       }
     };
 
-    TestRig.main(new String[]{"dgroomes.antlr.Hello", "greeting", "-tree", helloFile.getAbsolutePath()});
+    parseHello(helloFile);
   }
 
   /**
@@ -46,5 +51,28 @@ public class App {
     }
 
     return Ok.ok(helloFile);
+  }
+
+  /**
+   * Parse a "*.hello" file using the ANTLR parser (generated classes like {@link HelloParser} and the ANTLR runtime
+   * library.
+   *
+   * @param helloFile a '*.hello' file
+   */
+  private static void parseHello(File helloFile) throws IOException {
+    CharStream stream = CharStreams.fromPath(helloFile.toPath());
+
+    HelloParser parser;
+    {
+      HelloLexer lexer = new HelloLexer(stream);
+      CommonTokenStream tokens = new CommonTokenStream(lexer);
+      tokens.fill();
+
+      parser = new HelloParser(tokens);
+      parser.setTrace(true);
+    }
+
+    HelloParser.GreetingContext tree = parser.greeting();
+    System.out.println(tree.toStringTree(parser));
   }
 }

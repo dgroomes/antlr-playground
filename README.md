@@ -29,6 +29,14 @@ Follow these instructions to code-gen the parser, build the sample program and r
    * `alias app="./app/build/install/app/bin/app"`
 5. Run the program over an example `*.hello` file
    * `app greet-friends.hello`
+   * It should output something like:
+     ```text
+     enter   greeting, LT(1)=hello
+     consume [@0,0:4='hello',<1>,1:0] rule greeting
+     consume [@1,6:14='Demetrius',<2>,1:6] rule greeting
+     exit    greeting, LT(1)=hello
+     (greeting hello Demetrius)
+     ```
 
 ## Wish list
 

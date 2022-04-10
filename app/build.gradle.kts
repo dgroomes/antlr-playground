@@ -10,7 +10,7 @@ repositories {
 val antlrVersion = "4.9.3"
 
 dependencies {
-    implementation("org.antlr:antlr4:$antlrVersion")
+    implementation("org.antlr:antlr4-runtime:$antlrVersion")
 }
 
 application {
